@@ -2,7 +2,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         String s = "";
 
-        s = "LIV";
+        s = "CM";
         System.out.println(romanToInt(s));
 
     }
@@ -11,24 +11,31 @@ public static int romanToInt(String s) {
     int output = 0;
     int length = s.length();
     char currVar = 'a';
-    char nextVar = 'a';
-    char prevVar = 'a';
-    int I = 1;
-    int V = 5;
-    int X = 10;
-    int L = 50;
-    int C = 100;
-    int D = 500;
-    int M = 1000;
-
-
-    for (int i = 0; i < length; i++){
+    int value = 0;
+    
+    for (int i = length - 1; i >= 0; i--){
         currVar = s.charAt(i);
-        if(i < length-1){
-        nextVar = s.charAt(i+1);
+        switch(currVar){
+            case ('I'): value = 1;
+                break;
+            case ('V'): value = 5;
+                break;
+            case ('X'): value = 10;
+                break;
+            case ('L'): value = 50;
+                break;
+            case ('C'): value = 100;
+                break;
+            case ('D'): value = 500;
+                break;
+            case ('M'): value = 1000;
+                break;
         }
-        if(currVar == 'I'){
-            output = output + 1;
+        if(value * 4 < output){
+            output = output - value;
+        }
+        else{
+            output += value;
         }
         }
         return output;
