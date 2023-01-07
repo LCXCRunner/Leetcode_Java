@@ -10,38 +10,30 @@ public class App {
 public static int romanToInt(String s) {
     int output = 0;
     int length = s.length();
-    char tempVar = 'a';
+    char currVar = 'a';
+    char nextVar = 'a';
+    char prevVar = 'a';
+    int I = 1;
+    int V = 5;
+    int X = 10;
+    int L = 50;
+    int C = 100;
+    int D = 500;
+    int M = 1000;
 
-    for (int i = length; i > 0; i--){
-        tempVar = s.charAt(i-1);
-        if(tempVar == 'I'){
+
+    for (int i = 0; i < length; i++){
+        currVar = s.charAt(i);
+        if(i < length-1){
+        nextVar = s.charAt(i+1);
+        }
+        if(currVar == 'I'){
             output = output + 1;
         }
-        if(tempVar == 'V'){
-            output = output + 5;
         }
-        if(tempVar == 'X'){
-            output = output + 10;
-        }
-        if(tempVar == 'L'){
-            output = output + 50;
-        }
-        if(tempVar == 'C'){
-            output = output + 100;
-        }
-        if(tempVar == 'D'){
-            output = output + 500;
-        }
-        if(tempVar == 'M'){
-            output = output + 1000;
-        }
-        else{
-            continue;
-        }
-        
-    }
+        return output;
 
-    return output;
+    }    
 }
-}
+
 
