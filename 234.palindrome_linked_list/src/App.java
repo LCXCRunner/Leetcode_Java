@@ -4,17 +4,30 @@ public class App {
   public static void main(String[] args) { 
     LinkedList<Integer> list = new LinkedList<Integer>();
     list.add(1);
+    list.add(2);
+    list.add(2);
     list.add(1);
-    list.add(8);
-    list.add(9);
     System.out.println(list);
-    isPalindrome(list);
+    System.out.println(isPalindrome(list));
   } 
 
 public static boolean isPalindrome(LinkedList<Integer> intList){
-    int halfListLength = intList.size() / 2;
+    int Length = intList.size();
+    LinkedList<Integer> checkerList = new LinkedList<>();
 
-    
-    return false;
+    for(int i = Length-1; i >= 0; i--){
+        checkerList.add(intList.get(i));
+    }
+
+    System.out.println(intList);
+    System.out.println(checkerList);
+
+    if(intList.equals(checkerList)){
+      return true;
+    }
+    else{
+      return false;
+    }
+
 }
 }
