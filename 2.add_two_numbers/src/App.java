@@ -34,6 +34,7 @@ public class App {
         }
         System.out.println(result.val);
         System.out.println();
+        System.out.println();
 
         
     }
