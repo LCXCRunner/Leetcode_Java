@@ -1,42 +1,29 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        ListNode head1 = new ListNode(1, null);
-        ListNode node2 = new ListNode(2, head1);
-        ListNode node3 = new ListNode(3, node2);
-        ListNode tail1 = new ListNode(0, node3);
-        ///*
-        System.out.print("Head1: ");
-        while(tail1.next != null){
-            tail1 = tail1.next;
-            System.out.print(tail1.val + ", ");
-        }
-        System.out.println();
-        //*/
+        Long tester1 = 9999999991L;
 
-        ListNode head2 = new ListNode(5, null);
-        ListNode node4 = new ListNode(7, head2);
-        ListNode node5 = new ListNode(9, node4);
-        ListNode tail2 = new ListNode(0, node5);
+        ListNode head = longToLinkedListReverseOrder(tester1);
+        ListNode tail = head;
+
+        System.out.print("Head1: ");
+        while(tail.next != null){
+            System.out.print(tail.val + ", ");
+            tail = tail.next;
+        }
+        System.out.println(tail.val);
+
+
+        Long tester2 = 9L;
+
+        ListNode head2 = longToLinkedListReverseOrder(tester2);
+        ListNode tail2 = head2;
 
         System.out.print("Head2: ");
         while(tail2.next != null){
-            tail2 = tail2.next;
             System.out.print(tail2.val + ", ");
+            tail2 = tail2.next;
         }
-        System.out.println();
-
-        ListNode result = addTwoNumbers(node3, node5);
-
-        System.out.print("Head: ");
-        while(result.next != null){
-            System.out.print(result.val + ", ");
-            result = result.next;
-        }
-        System.out.println(result.val);
-        System.out.println();
-        System.out.println();
-
-        
+        System.out.println(tail2.val);
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
@@ -81,6 +68,25 @@ public class App {
             }
             tail = newNode;
             resultInt /= 10;
+        }
+        return head.next;
+    }
+
+    //example: 1234 would return [4,3,2,1] as a linked list
+    public static ListNode longToLinkedListReverseOrder(long num){
+        ListNode head = new ListNode();
+        ListNode tail = new ListNode();
+
+        while(num != 0){
+            ListNode newNode = new ListNode((int)(num % 10), null);
+            if(head.next == null){
+                head.next = newNode;
+            }
+            else{
+                tail.next = newNode;
+            }
+            tail = newNode;
+            num /= 10;
         }
         return head.next;
     }
