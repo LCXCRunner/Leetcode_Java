@@ -1,56 +1,62 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        ListNode head1 = new ListNode(0, null);
-        int count = 0;
-        while(count <= 4){
-            ListNode newNode = new ListNode();
-            newNode.val = count;
-            newNode.next = head1;
-            head1 = newNode;
-            count++;
-        }
-        /*
+        ListNode head1 = new ListNode(1, null);
+        ListNode node2 = new ListNode(2, head1);
+        ListNode node3 = new ListNode(3, node2);
+        ListNode tail1 = new ListNode(0, node3);
+        ///*
         System.out.print("Head1: ");
-        while(head1.next != null){
-            System.out.print(head1.val + ", ");
-            head1 = head1.next;
+        while(tail1.next != null){
+            tail1 = tail1.next;
+            System.out.print(tail1.val + ", ");
         }
         System.out.println();
-        */
+        //*/
 
-        ListNode head2 = new ListNode(0, null);
-        int count2 = 4;
-        while(count2 >= 0){
-            ListNode newNode = new ListNode();
-            newNode.val = count2;
-            newNode.next = head2;
-            head2 = newNode;
-            count2--;
-        }
-        /*
+        ListNode head2 = new ListNode(5, null);
+        ListNode node4 = new ListNode(7, head2);
+        ListNode node5 = new ListNode(9, node4);
+        ListNode tail2 = new ListNode(0, node5);
+
         System.out.print("Head2: ");
-        while(head2.next != null){
-            System.out.print(head2.val + ", ");
-            head2 = head2.next;
+        while(tail2.next != null){
+            tail2 = tail2.next;
+            System.out.print(tail2.val + ", ");
         }
         System.out.println();
-        */
 
-        addTwoNumbers(head1, head2);
+        ListNode result = addTwoNumbers(node3, node5);
+
+        System.out.print("Head: ");
+        while(result.next != null){
+            System.out.print(result.val + ", ");
+            result = result.next;
+        }
+        System.out.println(result.val);
+        System.out.println();
+
+        
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
-        ListNode newNode = new ListNode();
+        ListNode head = new ListNode(0,null);
+        ListNode tail = new ListNode();
+        tail.next = head;
         int list1 = l1.val;
         int list2 = l2.val;
         int multiplier = 10;
+        int resultInt = 0;
+
+        if(l1.val == 0 && l2.val == 0){
+            return head;
+        }
 
         while(l1.next != null){
             l1 = l1.next;
             list1 = l1.val * multiplier + list1;
             multiplier *= 10;
         }
-        System.out.println(list1);
+        //System.out.println(list1);
         multiplier = 10;
 
         while(l2.next != null){
@@ -58,9 +64,23 @@ public class App {
             list2 = l2.val * multiplier + list2;
             multiplier *= 10;
         }
-        System.out.println(list2);
+        //System.out.println(list2);
 
+        resultInt = list1 + list2;
+        //System.out.println(resultInt);
         
-        return newNode;
+        while(resultInt != 0){
+            ListNode newNode = new ListNode(resultInt % 10, null);
+            if(head.next == null){
+                head.next = newNode;
+                //head.val = newNode.val;
+            }
+            else{
+                tail.next = newNode;
+            }
+            tail = newNode;
+            resultInt /= 10;
+        }
+        return head.next;
     }
 }
