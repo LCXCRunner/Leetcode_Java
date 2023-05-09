@@ -35,5 +35,4 @@ public class App {
         }
         return head;
     }
-    }
 }
