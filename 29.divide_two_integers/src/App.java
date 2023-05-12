@@ -1,7 +1,7 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        int dividend = Integer.MIN_VALUE;
-        int divisor = -1109186033;
+        int dividend = 101;
+        int divisor = 5;
 
         System.out.println("Answer: " + (dividend/divisor));
         System.out.println("Method Answer: " + divide(dividend,divisor));
@@ -10,43 +10,20 @@ public class App {
     }
 
     public static int divide(int dividend, int divisor){
-        boolean isNegative = false;
-        if(dividend == 0){
-            return 0;
+        if (dividend == Integer.MIN_VALUE && divisor == -1) return Integer.MAX_VALUE; //Cornor case when -2^31 is divided by -1 will give 2^31 which doesnt exist so overflow 
+         
+        boolean negative = dividend < 0 ^ divisor < 0; //Logical XOR will help in deciding if the results is negative only if any one of them is negative
+        
+        dividend = Math.abs(dividend);
+        divisor = Math.abs(divisor);
+        int quotient = 0, subQuot = 0;
+        
+        while (dividend - divisor >= 0) {
+            for (subQuot = 0; dividend - (divisor << subQuot << 1) >= 0; subQuot++);
+            quotient += 1 << subQuot; //Add to the quotient
+            dividend -= divisor << subQuot; //Substract from dividend to start over with the remaining
+            System.out.println(dividend);
         }
-         if(dividend == Integer.MIN_VALUE && divisor == -1){
-            return Integer.MAX_VALUE;//edge case that is out of range of int
-        }
-        if(dividend < 0 ^ divisor < 0){//XOR statement looking for negative answers
-            isNegative = true;
-        }
-        if(Math.abs(divisor) == 1){
-            int posDividend = Math.abs(dividend);
-            return (isNegative ? -posDividend : posDividend);
-        }
-        if(Math.abs(dividend>>1) < Math.abs(divisor>>1)){
-            return 0;
-        }
-       
-
-        int posDividend = Math.abs(dividend);
-        int posDivisor = Math.abs(divisor);
-        int runningSum = 0;
-        int count = 0;
-
-        if(dividend == Integer.MIN_VALUE){//edge case of Integer.MIN_VALUE
-            posDividend = Math.abs(dividend>>1);
-            while(posDividend - runningSum >= posDivisor){
-                runningSum += posDivisor;
-                count++;
-            }
-            count = count<<1;
-            return (isNegative ? -count : count);
-        }
-        while(posDividend - runningSum >= posDivisor){
-            runningSum += posDivisor;
-            count++;
-        }
-        return (isNegative ? -count : count);
+        return negative ? -quotient : quotient;
     }
 }
